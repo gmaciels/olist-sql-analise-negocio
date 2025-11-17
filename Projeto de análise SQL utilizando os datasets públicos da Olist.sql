@@ -1,3 +1,4 @@
+-- BASE DE DADOS:
 -- olist_customers_dataset : cidade e estado do cliente
 -- olist_geolocation_dataset : coordenadas e cidade e estado
 -- olist_order_items_dataset: id de venda, preço e frete 
@@ -6,24 +7,6 @@
 -- olist_orders_dataset: ordem do pedido(quando gerou, publicou, enviou, recebeu.
 -- olist_products_dataset: caracteristicas do produtos(peso,largura,altura,foto
 -- olist_sellers_dataset: codigo, cidade e estado do vendedor
-
-select * from olist_sellers_dataset
----
-SELECT COUNT(DISTINCT order_id) FROM olist_orders_dataset
-WHERE order_status = 'shipped'
-
-SELECT DISTINCT(order_status) FROM olist_orders_dataset LIMIT 100
-
--- Quais as 5 categorias que a loja possui mais produtos em estoque
--- Contagem de produtos POR categoria 
-SELECT COUNT(DISTINCT product_id) AS TOTAL_PRODUTOS, product_category_name AS CATEGORIA
-FROM olist_products_dataset
-GROUP BY product_category_name 
-ORDER BY TOTAL_PRODUTOS DESC 
-LIMIT 5
-
-SELECT * FROM olist_sellers_dataset
-limit 100
 
 ----------------------------------------------------------------------------------
 --PERGUNTAS DE NEGOCIO:
@@ -52,6 +35,16 @@ SELECT * FROM olist_order_items_dataset
 
 select AVG(freight_value) as media_de_frete
 from olist_order_items_dataset
+
+-- Quais as 5 categorias que a loja possui mais produtos em estoque (Contagem de produtos POR categoria)
+SELECT COUNT(DISTINCT product_id) AS TOTAL_PRODUTOS, product_category_name AS CATEGORIA
+FROM olist_products_dataset
+GROUP BY product_category_name 
+ORDER BY TOTAL_PRODUTOS DESC 
+LIMIT 5
+
+SELECT * FROM olist_sellers_dataset
+limit 100
 
 -- Quantos pedidos foram entregues em SP ?
 SELECT count(DISTINCT order_id) as pedidos
